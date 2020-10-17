@@ -21,15 +21,24 @@ import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
 import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
 import Indent from "@ckeditor/ckeditor5-indent/src/indent";
+import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock';
 import Link from "@ckeditor/ckeditor5-link/src/link";
 import List from "@ckeditor/ckeditor5-list/src/list";
 import MediaEmbed from "@ckeditor/ckeditor5-media-embed/src/mediaembed";
 import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 import PasteFromOffice from "@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice";
-import Table from "@ckeditor/ckeditor5-table/src/table";
-import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation";
 import Font from "@ckeditor/ckeditor5-font/src/font";
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters';
+import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials';
+import Table from '@ckeditor/ckeditor5-table/src/table';
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+
+import "@ckeditor/ckeditor5-theme-lark/theme/theme.css"
 
 export default class InlineEditor extends InlineEditorBase {}
 // Plugins to include in the build.
@@ -54,10 +63,16 @@ InlineEditor.builtinPlugins = [
 	MediaEmbed,
 	Paragraph,
 	PasteFromOffice,
-	Table,
-	TableToolbar,
 	TextTransformation,
 	Font,
+	Alignment,
+	SpecialCharacters,
+	SpecialCharactersEssentials,
+	Table, 
+	TableToolbar, 
+	TableProperties, 
+	TableCellProperties, 
+	CodeBlock,
 ];
 
 // Editor configuration.
@@ -72,31 +87,33 @@ InlineEditor.defaultConfig = {
 			"bulletedList",
 			"numberedList",
 			"|",
-			"indent",
-			"outdent",
-			"|",
-			"imageUpload",
+			'outdent', 
+			'indent',
+			'|',
 			"blockQuote",
 			"insertTable",
-			"mediaEmbed",
 			"undo",
 			"redo",
 			"fontFamily",
 			"fontSize",
 			"fontColor",
 			"fontBackgroundColor",
-		],
-	},
-	image: {
-		toolbar: [
-			"imageStyle:full",
-			"imageStyle:side",
-			"|",
-			"imageTextAlternative",
+			"alignment",
+			"specialCharacters",
+			'codeBlock'
 		],
 	},
 	table: {
-		contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+		contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells',
+		'tableProperties', 'tableCellProperties'],
+	},
+	heading: {
+		options: [
+			{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+			{ model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+			{ model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+			{ model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: "en",
